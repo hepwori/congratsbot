@@ -9,7 +9,7 @@ It uses the Twitter Streaming API to gather all tweets containing the words 'con
 Some things:
 - obviously the `reply_count` dictionary grows without limit. In practice the bot will stall (see below) before that becomes an issue. Nonetheless it'll probably offend your sense of properness like it does mine;
 - by design the bot shrugs at most exceptions and just moves on. The main priority of the bot is staying connected to the stream and processing messages as best it can;
-- we start the bot with a blacklist of users comprising those which have been recently @-replied. Ideally this blacklist would expire; in practice, though, it mostly doesn't matter because of stalls; and
+- we start the bot with a blacklist of users comprising those which have been recently @-replied. Ideally this blacklist would expire; in practice, though, it mostly doesn't matter because of stalls;
 - the Twitter stream will occasionally "stall", ie. remain connected but deliver no more messages. I use an external process to monitor this condition and restart the bot as necessary; and finally
 - this is the most Python I've ever written in one place. I'm keen to learn about Pythonic idioms I missed, and so much more, but be gentle.
 
