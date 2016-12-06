@@ -4,6 +4,7 @@ import sys
 import re
 import time
 import os
+import signal
 from collections import defaultdict
 import logging; logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s: %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
 
@@ -89,6 +90,7 @@ class ReplyAggregatorBot:
     
     # keep the input stream up and running. use exponential back-off as needed
     def run(self):
+        self.admin_dm("About to start @congratsbot")
         raw_terms = ','.join(self.search_terms)
         sleep_time = 1
         while True:
@@ -98,6 +100,7 @@ class ReplyAggregatorBot:
                 sleep_time = 1; logging.info('Connection successful'); self.admin_dm('Started stream with terms ' + raw_terms)
                 self.process_stream(input_stream)
             except KeyboardInterrupt:
+                self.admin_dm('Interrupted')
                 return
             except:
                 logging.error('Stream processing failed (' + str(sys.exc_info()) + '). Retrying in ' + str(sleep_time))
@@ -186,7 +189,13 @@ def congrats_heuristic(screen_name, tweet_id):
         return False
     
     return True
+
+
+def signal_handler(signum, frame):
+    raise KeyboardInterrupt, "Signal handler"
     
+signal.signal(signal.SIGINT, signal_handler)
+
 
 # configure a bot looking for tweets with the specified keywords. tally counts of those
 # which are replies, and when the number of replies to a single tweet reaches the threshold,
