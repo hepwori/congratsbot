@@ -205,7 +205,7 @@ congrats_bot = ReplyAggregatorBot(
     search_terms=('congrats','congratulations'),
     threshold=5,
     response='congratulations!',
-    recipient_blacklist=recent_recipients + ["realDonaldTrump"] + ["POTUS"],
+    recipient_blacklist=recent_recipients + ["realDonaldTrump"] + ["POTUS"] + ["DonaldJTrumpJr"],
     exclusion_heuristic=congrats_heuristic)
 
 congrats_bot.run()
