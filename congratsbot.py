@@ -153,8 +153,6 @@ class ReplyAggregatorBot:
     # respond appropriately when a tweet reaches the threshold, skipping on error
     def respond_to_tweet(self, screen_name, tweet_id):
         try:
-            logging.info('Favoriting tweet')
-            TwitterHelper.fav_tweet(tweet_id)
             logging.info('Tweeting response')
             TwitterHelper.send_tweet(tweet_id, '@' + screen_name + ' ' + self.response)
             logging.info('Tweeted')
